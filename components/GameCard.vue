@@ -34,7 +34,23 @@ function isThePriceRight() {
 
 <template>
   <div v-if="isGameStarted === false">
-    <button type="button" class="" @click="start">Press Start !</button>
+    <div class="pt-20">
+      <h1 class="text-7xl text-white">
+        The <br />
+        Price <br />
+        Is <br />Right
+      </h1>
+      <p class="text-white pt-3">Non-profit game</p>
+    </div>
+    <div class="pt-64">
+      <button
+        type="button"
+        class="text-3xl px-8 py-3 border-4 border-white rounded-full hover:border-red-500 hover:text-red-500"
+        @click="start"
+      >
+        Press Start
+      </button>
+    </div>
   </div>
   <div v-else>
     <h1 class="text-3xl">Le prix du premier iPhone à sa sortie ?</h1>
