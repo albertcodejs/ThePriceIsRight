@@ -40,9 +40,9 @@ function isThePriceRight() {
         Price <br />
         Is <br />Right
       </h1>
-      <p class="text-white pt-3">Non-profit game</p>
+      <p class="text-white pt-3">Trouver le bon prix pour gagner la partie</p>
     </div>
-    <div class="pt-64">
+    <div class="pt-40">
       <button
         type="button"
         class="text-3xl px-8 py-3 border-4 border-white rounded-full hover:border-red-500 hover:text-red-500"
@@ -52,31 +52,33 @@ function isThePriceRight() {
       </button>
     </div>
   </div>
-  <div v-else>
-    <h1 class="text-3xl">Le prix du premier iPhone à sa sortie ?</h1>
-    <h2>
-      Combien coûtait l'iPhone 2G (4Gb de stockage) à sa sortie (juin 2007) en
-      dollars US ?
+  <div v-else class="px-6 pt-20">
+    <h1 class="text-2xl pb-4">
+      Quel était le prix du premier iPhone à sa sortie ?
+    </h1>
+    <h2 class="text-xs pb-4">
+      L'iPhone 2G (avec 4Go de stockage) en juin 2007 en $ ?
     </h2>
-    <div class="flex">
+    <div class="flex flex-col">
       <div>
-        <img src="/public/iphone2G.png" alt="iPhone 2G" />
+        <img src="/public/iphone2G.png" alt="iPhone 2G" class="w-1/2 m-auto" />
       </div>
       <div>
         <h3
-          class="text-7xl"
+          class="text-4xl"
           :class="[timeLeft >= 10 ? 'text-black' : 'text-red-500']"
           v-if="timeLeft > 0"
         >
           {{ timeLeft }}
         </h3>
-        <h3 class="text-7xl text-red-500" v-else>Temps écoulé</h3>
+        <h3 class="text-4xl pb-3 text-red-500" v-else>Temps écoulé</h3>
         <form>
           <input
             type="number"
             id="input"
             required
             v-model="tryNumber"
+            class="text-black bg-gray-300 mb-5"
             @keydown.enter.prevent="isThePriceRight"
           />
           <input type="submit" class="hidden" />
