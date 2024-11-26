@@ -5,7 +5,7 @@ useHead({
 </script>
 
 <template>
-  <div class="h-dvh bg-dark-violet text-white text-center">
+  <div class="h-dvh w-dvw bg-dark-violet text-white text-center">
     <GameCard />
   </div>
 </template>

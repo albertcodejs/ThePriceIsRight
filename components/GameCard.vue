@@ -6,6 +6,7 @@ let timeLeft = ref(30);
 let isPriceFound = ref(false);
 let tryNumber = ref();
 let numberToFind = 499;
+let message = ref("Entrez un prix pour commencer à jouer :");
 
 function start() {
   isGameStarted.value = true;
@@ -22,12 +23,13 @@ function startTimer() {
 
 function isThePriceRight() {
   if (tryNumber.value === numberToFind) {
-    console.log("Félicitations");
+    message.value = "Félicitations !";
     isPriceFound = true;
+    tryNumber.readOnly = true;
   } else if (tryNumber.value > numberToFind) {
-    console.log("C'est moins !");
+    message.value = "C'est moins !";
   } else if (tryNumber.value < numberToFind) {
-    console.log("C'est plus !");
+    message.value = "C'est plus !";
   }
 }
 </script>
@@ -40,7 +42,7 @@ function isThePriceRight() {
         Price <br />
         Is <br />Right
       </h1>
-      <p class="text-white pt-3">Trouver le bon prix pour gagner la partie</p>
+      <p class="text-white pt-3">Find the right price to win the game.</p>
     </div>
     <div class="pt-40">
       <button
@@ -56,34 +58,27 @@ function isThePriceRight() {
     <h1 class="text-2xl pb-4">
       Quel était le prix du premier iPhone à sa sortie ?
     </h1>
-    <h2 class="text-xs pb-4">
-      L'iPhone 2G (avec 4Go de stockage) en juin 2007 en $ ?
+    <h2 class="text-xs pb-4 mx-16">
+      (iPhone 2G avec 4Go de stockage en juin 2007 et en $)
     </h2>
-    <div class="flex flex-col">
-      <div>
-        <img src="/public/iphone2G.png" alt="iPhone 2G" class="w-1/2 m-auto" />
-      </div>
-      <div>
-        <h3
-          class="text-4xl"
-          :class="[timeLeft >= 10 ? 'text-black' : 'text-red-500']"
-          v-if="timeLeft > 0"
-        >
-          {{ timeLeft }}
-        </h3>
-        <h3 class="text-4xl pb-3 text-red-500" v-else>Temps écoulé</h3>
-        <form>
-          <input
-            type="number"
-            id="input"
-            required
-            v-model="tryNumber"
-            class="text-black bg-gray-300 mb-5"
-            @keydown.enter.prevent="isThePriceRight"
-          />
-          <input type="submit" class="hidden" />
-        </form>
-      </div>
-    </div>
+    <p class="mb-2">{{ message }}</p>
+    <form class="flex mx-10">
+      <label
+        class="flex-none bg-white rounded-full px-3 py-1"
+        :class="[timeLeft >= 10 ? 'text-black' : 'text-red-500']"
+      >
+        {{ timeLeft }}
+      </label>
+      <input
+        class="flex-grow ml-2 mr-2 rounded-full text-black pl-2"
+        type="number"
+        id="input"
+        required
+        v-model="tryNumber"
+        placeholder="Essayez un nombre.."
+        @keydown.enter.prevent="isThePriceRight"
+      />
+      <input  class="flex-none" type="submit" value="⬆️"></input> 
+    </form>
   </div>
 </template>
