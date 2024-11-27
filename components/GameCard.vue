@@ -5,8 +5,9 @@ let isGameStarted = ref(false);
 let timeLeft = ref(30);
 let isPriceFound = ref(false);
 let tryNumber = ref();
+let triedNumber = ref([]);
 let numberToFind = 499;
-let message = ref("Entrez un prix pour commencer à jouer :");
+let message = ref("Enter the right price here to win the game :");
 let isDisabled = ref(false);
 
 function start() {
@@ -16,21 +17,30 @@ function start() {
       timeLeft.value--;
     }
     if (timeLeft.value === 0) {
+      message = "Game over !";
       isDisabled = true;
       clearInterval(timer);
     }
-  }, 1000)
+  }, 1000);
+}
+
+function addTryNumber(newNumber) {
+  triedNumber.value.push(newNumber);
 }
 
 function isThePriceRight() {
   if (tryNumber.value === numberToFind) {
-    message.value = "Félicitations !";
+    message.value = "Congratulations !";
     isPriceFound = true;
     isDisabled = true;
   } else if (tryNumber.value > numberToFind) {
-    message.value = "C'est moins !";
+    message.value = "It's less !";
+    addTryNumber(tryNumber.value);
+    tryNumber.value = "";
   } else if (tryNumber.value < numberToFind) {
-    message.value = "C'est plus !";
+    message.value = "It's more !";
+    addTryNumber(tryNumber.value);
+    tryNumber.value = "";
   }
 }
 </script>
@@ -57,10 +67,10 @@ function isThePriceRight() {
   </div>
   <div v-else class="px-6 pt-20">
     <h1 class="text-2xl pb-4">
-      Quel était le prix du premier iPhone à sa sortie ?
+      How much did the first iPhone cost when it was released?
     </h1>
     <h2 class="text-xs pb-4 mx-16">
-      (iPhone 2G avec 4Go de stockage en juin 2007 et en $)
+      (iPhone 2G with 4GB of storage in June 2007 and in $)
     </h2>
     <p class="mb-2">{{ message }}</p>
     <form class="flex mx-10">
@@ -76,11 +86,19 @@ function isThePriceRight() {
         id="input"
         required
         v-model="tryNumber"
-        placeholder="Essayez un nombre.."
+        placeholder="Try a number here.."
         @keydown.enter.prevent="isThePriceRight"
         :disabled="isDisabled"
       />
-      <input class="flex-none" type="submit" value="⬆️"></input> 
+      <input
+        type="button"
+        class="flex-none"
+        value="⬆️"
+        @click="isThePriceRight"
+      />
     </form>
+    <div class="flex flex-row mt-2 mx-10">
+      <p class="mr-2 line-through" v-for="item in triedNumber">{{ item }}</p>
+    </div>
   </div>
 </template>
