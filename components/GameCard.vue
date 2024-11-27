@@ -7,25 +7,26 @@ let isPriceFound = ref(false);
 let tryNumber = ref();
 let numberToFind = 499;
 let message = ref("Entrez un prix pour commencer à jouer :");
+let isDisabled = ref(false);
 
 function start() {
   isGameStarted.value = true;
-  startTimer();
-}
-
-function startTimer() {
-  setInterval(() => {
+  const timer = setInterval(() => {
     if (timeLeft.value > 0 && isPriceFound.value === false) {
       timeLeft.value--;
     }
-  }, 1000);
+    if (timeLeft.value === 0) {
+      isDisabled = true;
+      clearInterval(timer);
+    }
+  }, 1000)
 }
 
 function isThePriceRight() {
   if (tryNumber.value === numberToFind) {
     message.value = "Félicitations !";
     isPriceFound = true;
-    tryNumber.readOnly = true;
+    isDisabled = true;
   } else if (tryNumber.value > numberToFind) {
     message.value = "C'est moins !";
   } else if (tryNumber.value < numberToFind) {
@@ -77,8 +78,9 @@ function isThePriceRight() {
         v-model="tryNumber"
         placeholder="Essayez un nombre.."
         @keydown.enter.prevent="isThePriceRight"
+        :disabled="isDisabled"
       />
-      <input  class="flex-none" type="submit" value="⬆️"></input> 
+      <input class="flex-none" type="submit" value="⬆️"></input> 
     </form>
   </div>
 </template>
