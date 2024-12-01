@@ -72,14 +72,14 @@ function isThePriceRight() {
     <h2 class="text-xs pb-4 mx-16">
       (iPhone 2G with 4GB of storage in June 2007 and in $)
     </h2>
-    <p class="mb-2">{{ message }}</p>
+    <h3
+      class="flex-none bg-white rounded-full px-3 py-4 w-20 m-auto text-5xl"
+      :class="[timeLeft >= 10 ? 'text-black' : 'text-red-500']"
+    >
+      {{ timeLeft }}
+    </h3>
+    <p class="mt-2 mb-2">{{ message }}</p>
     <form class="flex mx-10">
-      <label
-        class="flex-none bg-white rounded-full px-3 py-1"
-        :class="[timeLeft >= 10 ? 'text-black' : 'text-red-500']"
-      >
-        {{ timeLeft }}
-      </label>
       <input
         class="flex-grow ml-2 mr-2 rounded-full text-black pl-2"
         type="number"
