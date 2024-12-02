@@ -11,6 +11,7 @@ let message = ref("Enter the right price here to win the game :");
 let isDisabled = ref(false);
 
 function start() {
+  console.log("start");
   isGameStarted.value = true;
   const timer = setInterval(() => {
     if (timeLeft.value > 0 && isPriceFound.value === false) {
@@ -63,6 +64,7 @@ function isThePriceRight() {
       >
         Press Start
       </button>
+      <!-- <input type="text" @keydown.enter.prevent="start" /> -->
     </div>
   </div>
   <div v-else class="px-6 pt-20">
