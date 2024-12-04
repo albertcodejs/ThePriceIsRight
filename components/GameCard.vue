@@ -1,45 +1,46 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
 let isGameStarted = ref(false);
 let timeLeft = ref(30);
 let isPriceFound = ref(false);
 let tryNumber = ref();
-let triedNumber = ref([]);
+let triedNumber = ref<string[]>([]);
 let numberToFind = 499;
 let message = ref("Enter the right price here to win the game :");
 let isDisabled = ref(false);
 
 function start() {
-  console.log("start");
   isGameStarted.value = true;
   const timer = setInterval(() => {
     if (timeLeft.value > 0 && isPriceFound.value === false) {
       timeLeft.value--;
     }
     if (timeLeft.value === 0) {
-      message = "Game over !";
-      isDisabled = true;
+      message.value = "Game over !";
+      isDisabled.value = true;
       clearInterval(timer);
     }
   }, 1000);
 }
 
-function addTryNumber(newNumber) {
+function addTryNumber(newNumber: string) {
   triedNumber.value.push(newNumber);
 }
 
 function isThePriceRight() {
   if (tryNumber.value === numberToFind) {
     message.value = "Congratulations !";
-    isPriceFound = true;
-    isDisabled = true;
+    isPriceFound.value = true;
+    isDisabled.value = true;
   } else if (tryNumber.value > numberToFind) {
     message.value = "It's less !";
+    // peut-etre changer tryNumber.value de string à number
     addTryNumber(tryNumber.value);
     tryNumber.value = "";
   } else if (tryNumber.value < numberToFind) {
     message.value = "It's more !";
+    // peut-etre changer tryNumber.value de string à number
     addTryNumber(tryNumber.value);
     tryNumber.value = "";
   }
@@ -64,7 +65,6 @@ function isThePriceRight() {
       >
         Press Start
       </button>
-      <!-- <input type="text" @keydown.enter.prevent="start" /> -->
     </div>
   </div>
   <div v-else class="px-6 pt-20">
