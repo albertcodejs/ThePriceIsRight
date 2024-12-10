@@ -10,7 +10,7 @@ let numberToFind = 499;
 let message = ref("Enter the right price here to win the game :");
 let isDisabled = ref(false);
 
-function start() {
+function start(): void {
   isGameStarted.value = true;
   const timer = setInterval(() => {
     if (timeLeft.value > 0 && isPriceFound.value === false) {
@@ -24,23 +24,23 @@ function start() {
   }, 1000);
 }
 
-function addTryNumber(newNumber: string) {
+function addTryNumber(newNumber: string): void {
   triedNumber.value.push(newNumber);
 }
 
-function isThePriceRight() {
+function isThePriceRight(): void {
   if (tryNumber.value === numberToFind) {
     message.value = "Congratulations !";
     isPriceFound.value = true;
     isDisabled.value = true;
   } else if (tryNumber.value > numberToFind) {
     message.value = "It's less !";
-    // peut-etre changer tryNumber.value de string à number
+    // peut-etre changer tryNumber.value de number à string ?
     addTryNumber(tryNumber.value);
     tryNumber.value = "";
   } else if (tryNumber.value < numberToFind) {
     message.value = "It's more !";
-    // peut-etre changer tryNumber.value de string à number
+    // peut-etre changer tryNumber.value de number à string ?
     addTryNumber(tryNumber.value);
     tryNumber.value = "";
   }
