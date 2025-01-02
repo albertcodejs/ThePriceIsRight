@@ -57,6 +57,14 @@ function isThePriceRight(): void {
       </h1>
       <p class="text-white pt-3">Find the right price to win the game.</p>
     </div>
+    <div class="pt-20">
+      <h1 class="text-7xl text-white">
+        The <br />
+        Price <br />
+        Is <br />Right
+      </h1>
+      <p class="text-white pt-3">Find the right price to win the game.</p>
+    </div>
     <div class="pt-40">
       <button
         type="button"
